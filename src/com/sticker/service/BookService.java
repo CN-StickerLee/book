@@ -1,6 +1,7 @@
 package com.sticker.service;
 
 import com.sticker.pojo.Book;
+import com.sticker.pojo.Page;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface BookService {
 
     public List<Book> queryBooks();
 
+    public Page<Book> page(int pageNo, int pageSize);
 }

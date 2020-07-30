@@ -67,6 +67,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
     public int queryForItemsTotalCount() {
         String sql = "select count(*) from t_book";
         Number count = (Number)queryForSingleValue(sql);
+        //intValue方法将Number类型转换为int型数据
         return count.intValue();
     }
 
