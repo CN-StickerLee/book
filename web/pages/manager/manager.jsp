@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>后台管理</title>
 	<%--	这里的地址应该是由服务器来解析的 --%>
-	<%@include file="/pages/common/head.jsp"%>>
+	<%@include file="/pages/common/head.jsp"%>
 <style type="text/css">
 	h1 {
 		text-align: center;

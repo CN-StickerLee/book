@@ -62,13 +62,14 @@ public class BookServiceImpl implements BookService {
 
         //因为为了防止不合法的页码输入，所以要进行页码和0以及当前总页数的比较
         //因此设置当前页码需要放在获取设置总页码的代码后面
-        /* 数据边界的有效检查 */
-        if (pageNo < 1) {
-            pageNo = 1;
-        }
-        if (pageNo > pageTotal) {
-            pageNo = pageTotal;
-        }
+
+//        /* 数据边界的有效检查 */
+//        if (pageNo < 1) {
+//            pageNo = 1;
+//        }
+//        if (pageNo > pageTotal) {
+//            pageNo = pageTotal;
+//        }
 
         //为了通用性，上面的判断直接写到了类对象的set函数中
         // 设置当前页码
