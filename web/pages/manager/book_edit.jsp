@@ -30,7 +30,10 @@
 		
 		<div id="main">
 			<form action="manager/bookServlet" method="post">
-				<input type="hidden" name="action" value="add"/>
+<%--				因为添加图书操作中没有也不需要去获取图书，所以添加图书操作中的id是为null的--%>
+				<input type="hidden" name="action" value="${empty param.id ? "add":"update"}"/>
+<%--				更新图书信息，需要知道图书的ID，所以这里要添加一个图书ID参数的隐藏域--%>
+				<input type="hidden" name="id" value="${requestScope.book.id}"/>
 				<table>
 					<tr>
 						<td>名称</td>
@@ -41,11 +44,11 @@
 						<td colspan="2">操作</td>
 					</tr>		
 					<tr>
-						<td><input name="name" type="text" value="时间简史"/></td>
-						<td><input name="price" type="text" value="30.00"/></td>
-						<td><input name="author" type="text" value="霍金"/></td>
-						<td><input name="sales" type="text" value="200"/></td>
-						<td><input name="stock" type="text" value="300"/></td>
+						<td><input name="name" type="text" value="${requestScope.book.name}"/></td>
+						<td><input name="price" type="text" value="${requestScope.book.price}"/></td>
+						<td><input name="author" type="text" value="${requestScope.book.author}"/></td>
+						<td><input name="sales" type="text" value="${requestScope.book.sales}"/></td>
+						<td><input name="stock" type="text" value="${requestScope.book.stock}"/></td>
 						<td><input type="submit" value="提交"/></td>
 					</tr>	
 				</table>

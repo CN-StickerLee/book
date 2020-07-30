@@ -76,7 +76,7 @@ public class BookServlet extends BaseServlet {
     }
 
     /**
-     * 获取图书，并转到编辑图书界面
+     * 点击图书的修改按钮时需要调用此函数，获取图书，并转到编辑图书界面
      * @param req
      * @param resp
      * @throws ServletException
@@ -94,7 +94,7 @@ public class BookServlet extends BaseServlet {
     }
 
     /**
-     * 更新图书信息,在图书编辑界面调用
+     * 更新图书信息,在图书编辑界面调用     修改图书更新图书的信息后，需要跳转到图书的展示界面
      * @param req
      * @param resp
      * @throws ServletException
