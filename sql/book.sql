@@ -16,6 +16,7 @@ insert into t_user(`username`,`password`,`email`) values('admin','admin','admin@
 select * from t_user;
 
 
+use book;
 
 create table t_book(
 	`id` int primary key auto_increment,
