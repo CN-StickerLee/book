@@ -109,16 +109,19 @@
 							<div class="tit">
 								<h1>注册尚硅谷会员</h1>
 								<span class="errorMsg">
-									<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
+<%--									<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>--%>
+									${requestScope.msg}
 								</span>
 							</div>
 							<div class="form">
 								<!-- 这里的action也是和上面的Base进行拼接的 -->
-								<form action="registServlet" method="post">
+								<form action="userServlet" method="post">
+									<input type="hidden" name="action" value="regist" />
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
 										   autocomplete="off" tabindex="1" name="username" id="username"
-										   value="<%=request.getAttribute("username")==null?"":request.getAttribute("username")%>"
+<%--										   value="<%=request.getAttribute("username")==null?"":request.getAttribute("username")%>"--%>
+											value="${requestScope.username}"
 									/>
 									<br />
 									<br />
@@ -135,7 +138,8 @@
 									<label>电子邮件：</label>
 									<input class="itxt" type="text" placeholder="请输入邮箱地址"
 										   autocomplete="off" tabindex="1" name="email" id="email"
-										   value="<%=request.getAttribute("email")==null?"":request.getAttribute("email")%>"
+<%--										   value="<%=request.getAttribute("email")==null?"":request.getAttribute("email")%>"--%>
+											value="${requestScope.email}"
 									/>
 									<br />
 									<br />
