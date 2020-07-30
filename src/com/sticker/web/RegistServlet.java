@@ -36,11 +36,11 @@ public class RegistServlet extends HttpServlet {
                 req.setAttribute("username",username);
                 req.setAttribute("email",email);
 
-                req.getRequestDispatcher("pages/user/regist.html").forward(req,resp);
+                req.getRequestDispatcher("pages/user/regist.jsp").forward(req,resp);
             } else {
                 //可用的话，调用Service保存到数据库，跳到注册成功界面
                 userService.registUser(new User(null,username,password,email));
-                req.getRequestDispatcher("pages/user/regist_success.html").forward(req,resp);
+                req.getRequestDispatcher("pages/user/regist_success.jsp").forward(req,resp);
             }
         } else {
             //提示信息
@@ -52,7 +52,7 @@ public class RegistServlet extends HttpServlet {
 
             //不正确的话，提示验证码错误，跳回注册界面
             System.out.println("[验证码"+code+"]错误！！！");
-            req.getRequestDispatcher("pages/user/regist.html").forward(req,resp);
+            req.getRequestDispatcher("pages/user/regist.jsp").forward(req,resp);
         }
 
     }

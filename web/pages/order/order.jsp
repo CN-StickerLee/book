@@ -1,9 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>我的订单</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<base href="http://localhost:8080/book/"/>
+<link type="text/css" rel="stylesheet" href="static/css/style.css" >
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -14,13 +16,13 @@
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">我的订单</span>
 			<div>
 				<span>欢迎<span class="um_span">韩总</span>光临尚硅谷书城</span>
-				<a href="../order/order.html">我的订单</a>
-				<a href="../../index.html">注销</a>&nbsp;&nbsp;
-				<a href="../../index.html">返回</a>
+				<a href="pages/order/order.jsp">我的订单</a>
+				<a href="index.jsp">注销</a>&nbsp;&nbsp;
+				<a href="index.jsp">返回</a>
 			</div>
 	</div>
 	

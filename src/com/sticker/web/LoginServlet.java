@@ -30,11 +30,11 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("username",username);
 
             //这里只是请求转发到相应的网页文件，浏览器上的请求路径和这里没有关系，不会因为下面的代码改变
-            req.getRequestDispatcher("/pages/user/login.html").forward(req,resp);
+            req.getRequestDispatcher("/pages/user/login.jsp").forward(req,resp);
         } else {
             System.out.println("登陆成功！！！");
             //如果登陆成功，跳到登陆成功界面
-            req.getRequestDispatcher("/pages/user/login_success.html").forward(req,resp);
+            req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
 }

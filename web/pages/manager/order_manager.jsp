@@ -1,19 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>订单管理</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<base href="http://localhost:8080/book/"/>
+<link type="text/css" rel="stylesheet" href="static/css/style.css" >
 </head>
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">订单管理系统</span>
 			<div>
-				<a href="book_manager.html">图书管理</a>
-				<a href="order_manager.html">订单管理</a>
-				<a href="../../index.html">返回商城</a>
+				<a href="pages/manager/book_manager.jsp">图书管理</a>
+				<a href="pages/manager/order_manager.jsp">订单管理</a>
+				<a href="index.jsp">返回商城</a>
 			</div>
 	</div>
 	
