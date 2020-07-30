@@ -43,8 +43,7 @@ public class BookServiceImpl implements BookService {
     public Page<Book> page(int pageNo, int pageSize) {
         Page<Book> bookPage = new Page<>();
 
-        // 设置当前页码
-        bookPage.setPageNo(pageNo);
+
         // 设置每页显示数量
         bookPage.setPageSize(pageSize);
         // 总记录数
@@ -59,6 +58,21 @@ public class BookServiceImpl implements BookService {
         }
         //设置总页数
         bookPage.setPageTotal(pageTotal);
+        System.out.println("总页码："+pageTotal);
+
+        //因为为了防止不合法的页码输入，所以要进行页码和0以及当前总页数的比较
+        //因此设置当前页码需要放在获取设置总页码的代码后面
+        /* 数据边界的有效检查 */
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        if (pageNo > pageTotal) {
+            pageNo = pageTotal;
+        }
+
+        //为了通用性，上面的判断直接写到了类对象的set函数中
+        // 设置当前页码
+        bookPage.setPageNo(pageNo);
 
         //当前页的开始索引
         int begin  = (bookPage.getPageNo() - 1) * bookPage.getPageSize();

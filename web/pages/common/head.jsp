@@ -15,6 +15,8 @@
             + request.getContextPath()
             +"/";
 
+//    在当前页面设置当前基础路径的值，用于当前页面引用
+    pageContext.setAttribute("basePath",basePath);
     //StringBuffer basePath = request.getRequestURL();
 %>
 <base href="<%=basePath%>" />

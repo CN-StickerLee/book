@@ -79,9 +79,9 @@
 			</c:if>
 
 
-			<a href="#">${requestScope.page.pageNo-1}</a>
+<%--			<a href="#">${requestScope.page.pageNo-1}</a>--%>
 			【${requestScope.page.pageNo}】
-			<a href="#">${requestScope.page.pageNo+1}</a>
+<%--			<a href="#">${requestScope.page.pageNo+1}</a>--%>
 
 <%--	         当前页面数如果已是最后一页的话，则不显示下一页和末页--%>
 			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
@@ -90,7 +90,28 @@
 			</c:if>
 
 			共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录 到第<input value="4" name="pn" id="pn_input"/>页
-			<input type="button" value="确定">
+			<input id="searchPageBtn" type="button" value="确定">
+
+				<script type="text/javascript">
+					$(function () {
+						// 跳到指定的页码
+						$("#searchPageBtn").click(function () {
+
+							var pageNo = $("#pn_input").val();
+
+							<%--var pageTotal = ${requestScope.page.pageTotal};--%>
+							<%--alert(pageTotal);--%>
+
+							// javaScript语言中提供了一个location地址栏对象
+							// 它有一个属性叫href.它可以获取浏览器地址栏中的地址
+							// href属性可读，可写
+							//这里的地址值必须是动态的，所以需要引入basePath的值
+							location.href = "${pageScope.basePath}manager/bookServlet?action=page&pageNo=" + pageNo;
+
+						});
+					});
+				</script>
+
 		</div>
 
 	</div>
