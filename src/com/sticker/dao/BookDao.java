@@ -21,4 +21,8 @@ public interface BookDao {
     public int queryForItemsTotalCount();        //获取总记录数
 
     public List<Book> queryForPageItems(int begin, int pageSize);             //获取当前页面的记录
+
+    public int queryForItemsTotalCountByPrice(int min, int max);        //获取总记录数
+
+    public List<Book> queryForPageItemsByPrice(int begin, int pageSize, int min, int max);             //获取当前页面的记录
 }

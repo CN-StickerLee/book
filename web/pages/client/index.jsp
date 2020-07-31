@@ -23,9 +23,11 @@
 	<div id="main">
 		<div id="book">
 			<div class="book_cond">
-				<form action="" method="get">
-					价格：<input id="min" type="text" name="min" value=""> 元 - 
-						<input id="max" type="text" name="max" value=""> 元 
+<%--				下面使用的是Get方式来发送请求，参数会显示在地址栏中--%>
+				<form action="client/bookServlet" method="get">
+					<input type="hidden" name="action" value="pageByPrice"/>
+					价格：<input id="min" type="text" name="min" value="${param.min}"> 元 -
+						<input id="max" type="text" name="max" value="${param.max}"> 元
 						<input type="submit" value="查询" />
 				</form>
 			</div>

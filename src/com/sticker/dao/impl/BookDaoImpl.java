@@ -78,4 +78,20 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 
         return queryForList(Book.class,sql,begin,pageSize);
     }
+
+    @Override
+    public int queryForItemsTotalCountByPrice(int min, int max) {
+        String sql = "select count(*) from t_book where price between ? and ?";
+        Number count = (Number)queryForSingleValue(sql,min,max);
+        //intValue方法将Number类型转换为int型数据
+        return count.intValue();
+    }
+
+    @Override
+    public List<Book> queryForPageItemsByPrice(int begin, int pageSize, int min, int max) {
+        String sql = "select `id` , `name` , `author` , `price` , `sales` , `stock` , `img_path` imgPath" +
+                " from t_book where price between ? and ? order by price limit ?,?";
+        //注意下面最后的几个参数是和sql语句中的参数位置一一对应的，而不是和queryForPageItemsByPrice函数参数的顺序对应
+        return queryForList(Book.class,sql,min,max,begin,pageSize);
+    }
 }
