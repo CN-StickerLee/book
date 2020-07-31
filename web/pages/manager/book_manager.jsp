@@ -54,8 +54,8 @@
 					<td>${book.author}</td>
 					<td>${book.sales}</td>
 					<td>${book.stock}</td>
-					<td><a href="manager/bookServlet?action=getBook&id=${book.id}">修改</a></td>
-					<td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
+					<td><a href="manager/bookServlet?action=getBook&id=${book.id}&pageNo=${requestScope.page.pageNo}">修改</a></td>
+					<td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a></td>
 				</tr>
 			</c:forEach>
 
@@ -66,7 +66,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
+				<td><a href="pages/manager/book_edit.jsp?pageNo=${requestScope.page.pageTotal}">添加图书</a></td>
 			</tr>
 		</table>
 

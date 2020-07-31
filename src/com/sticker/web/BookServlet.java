@@ -44,6 +44,14 @@ public class BookServlet extends BaseServlet {
      * @throws IOException
      */
     protected void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//        注意：添加的时候页码数加1，这样如果本来就需要增加页数的话可以跳转到最后一页，不要
+//        增加页数的话，由于页码大于总页数，我们前面加了限制，也会重新被赋值，跳转到最后一页。
+        int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),0);
+        pageNo += 1;
+
+        System.out.println("测试也一样晕晕晕："+pageNo);
+
         //1.获取请求参数，封装成Book对象
         Book book = WebUtils.copyParamToBean(req.getParameterMap(),new Book());
 
@@ -54,7 +62,8 @@ public class BookServlet extends BaseServlet {
         //这里不能用请求转发，因为请求转发是一次请求，在这里包含
         //添加图书和展示所有图书两个动作，而应该用重定向，重定向是
         //两次请求。
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page" +
+                "&pageNo="+ pageNo);
     }
 
     /**
@@ -73,7 +82,7 @@ public class BookServlet extends BaseServlet {
         //2.BookService调用deleteBookById函数，进行持久化
         bookService.deleteBookById(id);
         //3.重定向跳转到图书列表页面
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
     }
 
     /**
@@ -109,13 +118,13 @@ public class BookServlet extends BaseServlet {
         bookService.updateBook(book);
 
         //3.重定向跳转到图书列表页面
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));;
     }
 
     protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1.获取请求参数：当前页码和每页显示数量
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
-        System.out.println("当前页码:"+pageNo);
+       // System.out.println("当前页码:"+pageNo);
         int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
 
         //2.BookService调用page函数，进行持久化,获取page对象

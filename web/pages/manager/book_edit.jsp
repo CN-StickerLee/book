@@ -34,6 +34,7 @@
 				<input type="hidden" name="action" value="${empty param.id ? "add":"update"}"/>
 <%--				更新图书信息，需要知道图书的ID，所以这里要添加一个图书ID参数的隐藏域--%>
 				<input type="hidden" name="id" value="${requestScope.book.id}"/>
+				<input type="hidden" name="pageNo" value="${param.pageNo}"/>
 				<table>
 					<tr>
 						<td>名称</td>
