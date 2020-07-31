@@ -50,7 +50,7 @@ public class BookServlet extends BaseServlet {
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),0);
         pageNo += 1;
 
-        System.out.println("测试也一样晕晕晕："+pageNo);
+        //System.out.println("测试也一样晕晕晕："+pageNo);
 
         //1.获取请求参数，封装成Book对象
         Book book = WebUtils.copyParamToBean(req.getParameterMap(),new Book());
