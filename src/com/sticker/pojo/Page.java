@@ -18,6 +18,20 @@ public class Page<T> {
     private Integer pageTotalCount;
     // 当前页数据
     private List<T> items;
+    // 分页条的请求url
+    private String url;
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "pageNo=" + pageNo +
+                ", pageTotal=" + pageTotal +
+                ", pageSize=" + pageSize +
+                ", pageTotalCount=" + pageTotalCount +
+                ", items=" + items +
+                ", url='" + url + '\'' +
+                '}';
+    }
 
     public Page(Integer pageNo, Integer pageTotal, Integer pageSize, Integer pageTotalCount, List<T> items) {
         this.pageNo = pageNo;
@@ -28,6 +42,14 @@ public class Page<T> {
     }
 
     public Page() {
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Integer getPageSize() {

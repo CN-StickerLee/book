@@ -27,6 +27,9 @@ public class ClientBookServlet extends BaseServlet {
         //2.BookService调用page函数，进行持久化,获取page对象
         Page<Book> page = bookService.page(pageNo,pageSize);
 
+        //设置page的部分请求地址
+        page.setUrl("client/bookServlet?action=page");
+
         //3.将page对象数据保存到request域中
         req.setAttribute("page",page);
         //System.out.println("总页数：" + page.getPageTotal());
