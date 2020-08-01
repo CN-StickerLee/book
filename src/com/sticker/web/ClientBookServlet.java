@@ -66,6 +66,10 @@ public class ClientBookServlet extends BaseServlet {
         //正是因为input标签中的min和max属性的值为null，防止空指针错误，以及最初展示效果，我们才给他一个预备初始值
 //        int min = WebUtils.parseInt(req.getParameter("min"),0);
 //        int max = WebUtils.parseInt(req.getParameter("max"),Integer.MAX_VALUE);
+
+//        System.out.println("小值:"+req.getParameter("min"));
+//        System.out.println("大值:"+req.getParameter("max"));
+
         if (req.getParameter("min") != null) {
             sb.append("&min=").append(req.getParameter("min"));
         }

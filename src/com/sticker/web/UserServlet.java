@@ -6,12 +6,11 @@ import com.sticker.service.impl.UserServiceImpl;
 import com.sticker.utils.WebUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Method;
+
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 public class UserServlet extends BaseServlet {
 
@@ -35,12 +34,20 @@ public class UserServlet extends BaseServlet {
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req,resp);
         } else {
             System.out.println("登陆成功！！！");
+
+            req.getSession().setAttribute("username",username);
             //如果登陆成功，跳到登陆成功界面
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
 
     protected void regist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //验证码相关
+        // 获取 Session 中的验证码
+        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        // 删除 Session 中的验证码
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
 
         //1.获取请求的参数
         String username = req.getParameter("username");
@@ -51,8 +58,8 @@ public class UserServlet extends BaseServlet {
         //使用BeanUtils来优化代码
         User user = WebUtils.copyParamToBean(req.getParameterMap(),new User());
 
-        //2.检查验证码是否正确  目前写死“qwert”
-        if("qwert".equals(code)) {
+        //2.检查验证码是否正确
+        if(token.equals(code)) {
             //正确的话，检查用户名是否可用
             if(userService.existsUsername(username)) {
                 //用户名已存在，当前用户名不可用，跳回注册界面
@@ -84,6 +91,12 @@ public class UserServlet extends BaseServlet {
         }
     }
 
+    protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //销毁Session（或者销毁Session中用户登录信息）
+        req.getSession().invalidate();
+        //重定向到首页或者登录页面
+        resp.sendRedirect(req.getContextPath());
+    }
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        doPost(req,resp);

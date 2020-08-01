@@ -17,7 +17,9 @@ public class JdbcUtils {
         try {
             Properties properties = new Properties();
             // 读取 jdbc.properties属性配置文件
-            InputStream inputStream = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
+            // ClassLoader读取配置文件的默认位置在src文件夹下
+            // 所以最好就将配置文件放在src文件夹下
+            InputStream inputStream = JdbcUtils.class.getClassLoader().getResourceAsStream("mysql5_jdbc.properties");
             // 从流中加载数据
             properties.load(inputStream);
             // 创建 数据库连接 池

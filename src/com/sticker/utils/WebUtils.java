@@ -33,7 +33,7 @@ public class WebUtils {
      */
     public static int parseInt(String strInt,int defaultValue) {
         try {
-            if(strInt != null) {
+            if(strInt != null && strInt != "") {
                 return Integer.parseInt(strInt);
             }
         } catch (Exception e) {
