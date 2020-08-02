@@ -42,13 +42,13 @@ public class OrderServlet extends BaseServlet {
 
         String orderId = null;
 
-        try {
+        //try {
             orderId = orderService.createOrder(cart, userId);
-            JdbcUtils.commitAndClose(); //数据库DAO操作等整个流程没有异常的话，提交事务
-        } catch (Exception e) {
-            JdbcUtils.rollbackAndClose();  //整个流程出现异常的话，回滚事务
-            e.printStackTrace();  //打印异常信息
-        }
+       //     JdbcUtils.commitAndClose(); //数据库DAO操作等整个流程没有异常的话，提交事务
+       // } catch (Exception e) {
+       //     JdbcUtils.rollbackAndClose();  //整个流程出现异常的话，回滚事务
+      //      e.printStackTrace();  //打印异常信息
+       // }
 
 //        req.setAttribute("orderId", orderId);
         // 请求转发到/pages/cart/checkout.jsp
