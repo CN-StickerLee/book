@@ -27,13 +27,13 @@
 			<span class="wel_word">网上书城</span>
 			<div>
 <%--				如果用户没有登录成功的话，显示登录、注册--%>
-			<c:if test="${empty sessionScope.username}">
+			<c:if test="${empty sessionScope.user}">
 				<a href="pages/user/login.jsp">登录</a> |
 				<a href="pages/user/regist.jsp">注册</a> &nbsp;&nbsp;
 			</c:if>
 <%--				如果用户登录成功的话，显示用户名、我的订单、注销--%>
-			<c:if test="${not empty sessionScope.username}">
-				<span>欢迎<span class="um_span">${sessionScope.username}</span>光临尚硅谷书城</span>
+			<c:if test="${not empty sessionScope.user}">
+				<span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临尚硅谷书城</span>
 				<a href="pages/order/order.jsp">我的订单</a>
 				<a href="index.jsp">注销</a>&nbsp;&nbsp;
 			</c:if>

@@ -4,6 +4,7 @@ import com.sticker.pojo.Cart;
 import com.sticker.pojo.User;
 import com.sticker.service.OrderService;
 import com.sticker.service.impl.OrderServiceImpl;
+import com.sticker.utils.JdbcUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,17 @@ public class OrderServlet extends BaseServlet {
 
         Integer userId = loginUser.getId();
 //        调用orderService.createOrder(Cart,Userid);生成订单
-        String orderId = orderService.createOrder(cart, userId);
+
+        String orderId = null;
+
+        try {
+            orderId = orderService.createOrder(cart, userId);
+            JdbcUtils.commitAndClose(); //数据库DAO操作等整个流程没有异常的话，提交事务
+        } catch (Exception e) {
+            JdbcUtils.rollbackAndClose();  //整个流程出现异常的话，回滚事务
+            e.printStackTrace();  //打印异常信息
+        }
+
 //        req.setAttribute("orderId", orderId);
         // 请求转发到/pages/cart/checkout.jsp
 //        req.getRequestDispatcher("/pages/cart/checkout.jsp").forward(req, resp);

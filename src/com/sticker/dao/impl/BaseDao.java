@@ -26,11 +26,13 @@ public abstract class BaseDao {
         try {
             return queryRunner.update(connection, sql, args);
         } catch (SQLException e) {
+            //注意DAO中不能再关闭数据库连接，连接必须在提交或者回滚事务后才能关闭。
+            // 因为现在大家用的都是同一个数据库连接，提前关闭的话，后面操作没法执行。
+            //DAO中某一步出现异常的话，例如上面的第一步saveOrder,需要往外抛，
+            // 让后面的步骤不在执行，同时让JDBC来捕获异常，进而进行回滚操作。因此DAO中可以捕获异常，但也要往外抛。
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(connection);
+            throw new RuntimeException(e);
         }
-        return -1;
     }
 
     /**
@@ -48,10 +50,8 @@ public abstract class BaseDao {
             return queryRunner.query(con, sql, new BeanHandler<T>(type), args);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(con);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -69,10 +69,10 @@ public abstract class BaseDao {
             return queryRunner.query(con, sql, new BeanListHandler<T>(type), args);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(con);
+
+            throw new RuntimeException(e);
         }
-        return null;
+
     }
 
     /**
@@ -89,10 +89,8 @@ public abstract class BaseDao {
             return queryRunner.query(conn, sql, new ScalarHandler(), args);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 }

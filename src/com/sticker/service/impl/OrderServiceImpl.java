@@ -30,6 +30,8 @@ public class OrderServiceImpl implements OrderService {
         // 保存订单
         orderDao.saveOrder(order);
 
+        //人为制造错误
+        int k = 1 / 0 ;
 
         // 遍历购物车中每一个商品项转换成为订单项保存到数据库
         for (Map.Entry<Integer, CartItem>entry : cart.getItems().entrySet()){
