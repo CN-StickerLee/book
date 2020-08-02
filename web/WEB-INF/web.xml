@@ -10,6 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
+<!--        / 表示请求地址为：http://ip:port/工程路径/   映射到 IDEA 的 web 目录-->
         <url-pattern>/loginServlet</url-pattern>
     </servlet-mapping>
 
@@ -75,5 +76,17 @@
         <servlet-name>OrderServlet</servlet-name>
         <url-pattern>/orderServlet</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>ManagerFilter</filter-name>
+        <filter-class>com.sticker.filter.ManagerFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ManagerFilter</filter-name>
+        <url-pattern>/pages/manager/*</url-pattern>
+<!--        除了拦截访问的页面路径，我们还要拦截访问后台的Servlet程序的地址
+            因为在该程序中有通过请求转发和重定向间接访问到后台管理页面的代码-->
+        <url-pattern>/manager/bookServlet</url-pattern>
+    </filter-mapping>
 
 </web-app>

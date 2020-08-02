@@ -28,7 +28,7 @@ public class OrderServlet extends BaseServlet {
         // 获取Userid
         User loginUser = (User) req.getSession().getAttribute("user");
 
-        //用户没有登录的话，不能结账，让他直接跳转到登录页面。
+        //用户没有登录的话，不能结账，让他通过请求转发跳转到登录页面。
         if (loginUser == null) {
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req,resp);
             return;
