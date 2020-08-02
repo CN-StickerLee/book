@@ -1,5 +1,6 @@
 package com.sticker.web;
 
+import com.google.gson.Gson;
 import com.sticker.pojo.Book;
 import com.sticker.pojo.Cart;
 import com.sticker.pojo.CartItem;
@@ -11,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartServlet extends BaseServlet {
 
@@ -50,6 +53,47 @@ public class CartServlet extends BaseServlet {
         req.getSession().setAttribute("lastName",cartItem.getName());
 
         resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    //加入购物车
+    protected void ajaxAddItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //获取相关参数:商品ID
+        int  bookId = WebUtils.parseInt(req.getParameter("id"),0);
+
+        //根据id获得Book对象，进而得到CartItem对象
+        Book book = bookService.queryBookById(bookId);
+        CartItem cartItem = new CartItem(book.getId(),book.getName(),1,book.getPrice(),book.getPrice());
+
+        //将购物车信息保存
+        //将商品加入购物车
+        //注意这里需要使用session域来存储，不能使用request域，因为request域只在一次请求有效
+        //而下面使用的是重定向，是两次请求，为什么使用重定向呢？
+        //因为防止浏览器缓存，进而刷新页面造成加入购物车操作重复提交
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        //首次创建Cart
+        if(cart == null) {
+            cart = new Cart();
+            req.getSession().setAttribute("cart",cart);
+        }
+
+        cart.addItem(cartItem);
+
+        //获取最后一个添加的商品的名称
+        req.getSession().setAttribute("lastName",cartItem.getName());
+
+        //resp.sendRedirect(req.getHeader("Referer"));
+
+        //使用Ajax请求来进行购物车商品总数和最后一个添加的商品名称的显示
+        Map<String,Object> map = new HashMap<>();
+        map.put("totalCount",cart.getTotalCount());
+        map.put("lastName",cartItem.getName());
+
+        Gson gson = new Gson();
+        String resultStr = gson.toJson(map);
+
+        resp.getWriter().write(resultStr);
+
     }
 
 
