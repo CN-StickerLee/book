@@ -60,6 +60,7 @@ public class Cart {
         CartItem cartItem = items.get(id);
         if (cartItem != null) {
             cartItem.setCount(count);// 修改商品数量
+            //更新当前商品项的总金额
             cartItem.setTotalPrice( cartItem.getPrice().multiply(new BigDecimal( cartItem.getCount() )) ); // 更新总金额
         }
     }

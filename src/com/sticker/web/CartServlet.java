@@ -46,6 +46,9 @@ public class CartServlet extends BaseServlet {
         //System.out.println(cart);
         //System.out.println("请求头中Referer的值：" + req.getHeader("Referer"));
 
+        //获取最后一个添加的商品的名称
+        req.getSession().setAttribute("lastName",cartItem.getName());
+
         resp.sendRedirect(req.getHeader("Referer"));
     }
 
@@ -86,5 +89,24 @@ public class CartServlet extends BaseServlet {
 
     }
     //修改购物车的商品数量
+    protected void updateCount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("修改购物车中商品的数量");
+
+        //获取相关参数:商品ID
+        int  bookId = WebUtils.parseInt(req.getParameter("id"),0);
+        int count = WebUtils.parseInt(req.getParameter("count"),1);
+
+        //获取购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+
+
+        if(cart != null) {
+            cart.updateCount(bookId,count);
+            //重定向回购物车界面
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+
+    }
 
 }
