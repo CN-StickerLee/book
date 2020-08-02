@@ -20,8 +20,10 @@ public class UserServlet extends BaseServlet {
         //1.获取请求的参数
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        //userService.login() 登录业务
+        User loginUser = userService.login(new User(null, username, password, null));
         //2.调用userService处理login业务
-        if(userService.login(new User(null,username,password,null)) == null) {
+        if(loginUser == null) {
             //如果等于null，说明登录失败，跳回登录界面
             System.out.println("登陆失败！！！");
 
@@ -35,7 +37,10 @@ public class UserServlet extends BaseServlet {
         } else {
             System.out.println("登陆成功！！！");
 
-            req.getSession().setAttribute("username",username);
+            //req.getSession().setAttribute("username",username);
+            // 保存用户登录的信息到Session域中
+            req.getSession().setAttribute("user", loginUser);
+
             //如果登陆成功，跳到登陆成功界面
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
