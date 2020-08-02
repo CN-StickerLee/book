@@ -10,6 +10,23 @@
 			// 页面加载完成之后
 			$(function () {
 
+				//通过AJAX请求实现用户名是否存在的即时检测
+				$("#username").blur(function () { //blur:失去焦点事件
+
+					// alert("调用失去焦点函数");
+					var username = this.value;
+
+					$.getJSON("http://localhost:8080/book/userServlet","action=ajaxExistUsername&" +
+							"username="+username,function (data) {
+							if(data.existsUsername) {
+								$("span.errorMsg").text("用户名已存在！");
+							} else {
+								$("span.errorMsg").text("用户名可用！");
+							}
+					})
+
+				});
+
 				//给验证码图片绑定单击事件，使得点击验证码图片，验证码图片会改变
 				$("#code_img").click(function () {
 					// 在事件响应的 function 函数中有一个 this 对象。这个 this 对象，是当前正在响应事件的 dom 对象

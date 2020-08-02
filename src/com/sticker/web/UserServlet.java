@@ -1,5 +1,6 @@
 package com.sticker.web;
 
+import com.google.gson.Gson;
 import com.sticker.pojo.User;
 import com.sticker.service.UserService;
 import com.sticker.service.impl.UserServiceImpl;
@@ -9,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -101,6 +104,21 @@ public class UserServlet extends BaseServlet {
         req.getSession().invalidate();
         //重定向到首页或者登录页面
         resp.sendRedirect(req.getContextPath());
+    }
+
+    protected void ajaxExistUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取请求参数
+        String userName = req.getParameter("username");
+        //检测用户名是否存在
+        boolean existsUsername = userService.existsUsername(userName);
+        //将返回的结果封装为Map对象
+        Map<String,Object> map = new HashMap<>();
+        map.put("existsUsername",existsUsername);
+        //将map数据转为JSON字符串
+        Gson gson = new Gson();
+        String json = gson.toJson(map);
+        //返回JSON字符串给AJAX
+        resp.getWriter().write(json);
     }
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
