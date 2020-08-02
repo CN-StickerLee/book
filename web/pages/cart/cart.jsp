@@ -7,6 +7,19 @@
 <title>购物车</title>
 <%--	这里的地址应该是由服务器来解析的 --%>
 	<%@include file="/pages/common/head.jsp"%>
+	<script type="text/javascript">
+		$(function () {
+			//删除商品项的确定函数
+			$("a.deleteItem").click(function () {
+				return confirm("你确定要删除【"+$(this).parent().parent().find("td:first").text()+"】吗？")
+			});
+
+			//清空购物车的确定函数
+			$("#clearCart").click(function () {
+				return confirm("你确定要清空购物车吗？");
+			});
+		})
+	</script>
 </head>
 <body>
 	
@@ -41,7 +54,7 @@
 						<td>${item.value.count}</td>
 						<td>${item.value.price}</td>
 						<td>${item.value.totalPrice}</td>
-						<td><a href="#">删除</a></td>
+						<td><a class="deleteItem" href="cartServlet?action=deleteItem&id=${item.value.id}">删除</a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -52,7 +65,7 @@
 			<div class="cart_info">
 				<span class="cart_span">购物车中共有<span class="b_count">${sessionScope.cart.totalCount}</span>件商品</span>
 				<span class="cart_span">总金额<span class="b_price">${sessionScope.cart.totalPrice}</span>元</span>
-				<span class="cart_span"><a href="#">清空购物车</a></span>
+				<span id="clearCart" class="cart_span"><a href="cartServlet?action=cleanCart">清空购物车</a></span>
 				<span class="cart_span"><a href="pages/cart/checkout.jsp">去结账</a></span>
 			</div>
 		</c:if>

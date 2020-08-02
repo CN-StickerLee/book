@@ -43,14 +43,48 @@ public class CartServlet extends BaseServlet {
         cart.addItem(cartItem);
 
         //获取refer信息，进而可以得到原来商品所在的页面(请求前的主页地址)，从而重定向到主页
-        System.out.println(cart);
-        System.out.println("请求头中Referer的值：" + req.getHeader("Referer"));
+        //System.out.println(cart);
+        //System.out.println("请求头中Referer的值：" + req.getHeader("Referer"));
 
         resp.sendRedirect(req.getHeader("Referer"));
     }
 
-    //清空购物车
+
     //删除购物车的商品项
+    protected void deleteItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("删除商品项");
+
+        //获取相关参数:商品ID
+        int  bookId = WebUtils.parseInt(req.getParameter("id"),0);
+
+        //获取购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+
+        if(cart != null) {
+            //删除商品项
+            cart.deleteItem(bookId);
+            //重定向到原来的购物车界面
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+
+    }
+    //清空购物车 cleanCart
+    protected void cleanCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("清空购物车");
+
+        //获取购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+
+        //清空购物车
+        if(cart != null) {
+            cart.clear();
+            //重定向回购物车界面
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+
+    }
     //修改购物车的商品数量
 
 }
